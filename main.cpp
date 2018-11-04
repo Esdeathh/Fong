@@ -1,6 +1,8 @@
 #include <iostream>
+#include <Application.h>
 
-int main() {
-    std::cout << "Hello, World!" << std::endl;
+int main()
+{
+    Application app("Test", 1920, 1080, true);
     return 0;
 }
