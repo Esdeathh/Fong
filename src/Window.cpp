@@ -2,7 +2,7 @@
 // Created by Rafik on 04.11.2018.
 //
 
-#include "Window.h"
+#include <Window.h>
 /*
 void ResizeCallback(GLFWwindow *window, int width, int height)
 {

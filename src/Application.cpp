@@ -2,7 +2,7 @@
 // Created by Rafik on 04.11.2018.
 //
 
-#include "Application.h"
+#include <Application.h>
 
 Application::Application(const std::string & title, int width, int height, bool fullscreen)
 {
