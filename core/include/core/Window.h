@@ -8,6 +8,7 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <common/timer.h>
 
 class Window
 {
