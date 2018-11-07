@@ -8,6 +8,10 @@
 #include <core/Window.h>
 #include <core/VertexArray.h>
 #include <core/Shader.h>
+#include <common/timer.h>
+#include <iostream>
+
+const int FPS_MAX = 60;
 
 class Application
 {

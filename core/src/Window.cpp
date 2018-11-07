@@ -20,11 +20,11 @@ Window::~Window()
     glfwTerminate();
 }
 
-void Window::Update()
+void Window::Render()
 {
     glfwSwapBuffers(m_Window);
     glfwPollEvents();
-    ProcessInput();
+    //ProcessInput();
 }
 
 bool Window::Init()

@@ -25,6 +25,12 @@ bool Application::Init(const std::string & title, int width, int height, bool fu
 
 void Application::Run()
 {
+    Timer mainTimer;
+    Timer inputTimer;
+    Timer tmpTimer;
+    double timeForInput;
+    double mainDelta;
+    double inputDelta;
     float vertices[] = {
             0.5f,  0.5f, 0.0f, // Prawy górny
             0.5f, -0.5f, 0.0f, // Prawy dolny
@@ -50,8 +56,25 @@ void Application::Run()
 
     float red = 0.0f;
     float c = 0.005f;
+    int i = 0;
     while(!m_Window->Closed())
     {
+        //TODO: double sub sucks....
+
+        mainDelta = mainTimer.getElapsedTime();
+        inputDelta = inputTimer.getElapsedTime();
+        timeForInput = mainDelta - inputDelta;
+        tmpTimer.getTime();
+        do {
+            timeForInput -= tmpTimer.getElapsedTime();
+            i++;
+            m_Window->ProcessInput();
+        } while(timeForInput > 0);
+        std::cout << mainTimer.getFps() << " ilosc pobran: " << i << "    " << timeForInput << "   " << mainDelta << "      " << inputTimer.getLastElapsedTime() << std::endl;
+        i = 0;
+
+        ////////////////////
+        inputTimer.getTime();
         if(red > 1)
             c = -c;
         else if(red < 0)
@@ -64,6 +87,6 @@ void Application::Run()
         shader.SetUniform4f("ourColor", red, 0.5f, 0.3f, 1.0f);
         VAO.Bind();
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
-        m_Window->Update();
+        m_Window->Render();
     }
 }

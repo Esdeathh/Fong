@@ -8,7 +8,8 @@ message("common dir: " ${PROJECT_SOURCE_DIR})
 
 set(SOURCE_FILES
         include/common/timer.h
-        src/timer.cpp)
+        src/timer.cpp
+        )
 
 #includes
 include_directories(${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME})

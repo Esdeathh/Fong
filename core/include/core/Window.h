@@ -20,7 +20,7 @@ private:
 public:
     Window(const std::string & title, int width, int height, bool fullscreen = false);
     ~Window();
-    void Update();
+    void Render();
     bool Closed();
     void Clear();
     void ProcessInput();
