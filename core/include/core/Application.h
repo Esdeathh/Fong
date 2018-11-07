@@ -6,6 +6,8 @@
 #define APPLICATION_H
 
 #include <core/Window.h>
+#include <core/VertexArray.h>
+#include <core/Shader.h>
 
 class Application
 {

@@ -22,10 +22,10 @@ public:
     ~Window();
     void Update();
     bool Closed();
+    void Clear();
     void ProcessInput();
 private:
     bool Init();
-    void Clear();
 };
 
 #endif //WINDOW_H

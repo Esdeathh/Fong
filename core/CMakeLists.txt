@@ -7,10 +7,13 @@ set(CMAKE_CXX_STANDARD 17)
 message("core dir: " ${PROJECT_SOURCE_DIR})
 
 set(SOURCE_FILES
-        include/core/Window.h
-        include/core/Application.h
         src/Application.cpp
-        src/Window.cpp)
+        src/Window.cpp
+        src/VertexArray.cpp
+        src/VertexBuffer.cpp
+        src/IndexBuffer.cpp
+        src/Shader.cpp
+        )
 
 #includes
 include_directories(${PROJECT_SOURCE_DIR}/include/core)

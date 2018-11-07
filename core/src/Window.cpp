@@ -22,7 +22,6 @@ Window::~Window()
 
 void Window::Update()
 {
-    Clear();
     glfwSwapBuffers(m_Window);
     glfwPollEvents();
     ProcessInput();
@@ -63,8 +62,9 @@ bool Window::Init()
 
     glViewport(0, 0, m_Width, m_Height);
     //glfwSetFramebufferSizeCallback(m_Window, ResizeCallback);
+    glfwSwapInterval(1);
 
-
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     return true;
 }
 
