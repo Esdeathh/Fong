@@ -13,13 +13,15 @@ set(SOURCE_FILES
         src/VertexBuffer.cpp
         src/IndexBuffer.cpp
         src/Shader.cpp
-        )
+        src/Texture.cpp)
 
 #includes
 include_directories(${PROJECT_SOURCE_DIR}/include/core)
 
 #lib
-add_library(${PROJECT_NAME} ${SOURCE_FILES} ${EXTERNALS_DIR}/glad/src/glad.c)
+add_library(${PROJECT_NAME} ${SOURCE_FILES} ${EXTERNALS_DIR}/glad/src/glad.c
+                                            ${EXTERNALS_DIR}/stb_image/src/stb_image.cpp)
+
 
 #Add targets
 target_link_libraries(${PROJECT_NAME} glm glfw common)

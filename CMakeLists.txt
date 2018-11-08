@@ -15,6 +15,7 @@ include(GNUInstallDirs)
 
 include_directories("${PROJECT_SOURCE_DIR}/core/include")
 include_directories(${EXTERNALS_DIR}/glad/include)
+include_directories(${EXTERNALS_DIR}/stb_image/include)
 include_directories(${EXTERNALS_DIR}/glfw/include)
 include_directories(${EXTERNALS_DIR}/glm/glm)
 include_directories(${COMMON_DIR}/include)

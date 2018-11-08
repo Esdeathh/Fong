@@ -2,7 +2,7 @@
 // Created by Rafik on 04.11.2018.
 //
 
-#include "core/VertexArray.h"
+#include <core/VertexArray.h>
 
 VertexArray::VertexArray()
 {
@@ -22,7 +22,7 @@ void VertexArray::BindVertexBuffer(const VertexBuffer &VBO, const VertexBufferLa
     unsigned int m = 0;
     for(int i = 0; i < elements.size(); i++)
     {
-        glVertexAttribPointer(i, elements[i].size, GL_FLOAT, GL_FALSE, VBL.GetStride(), (const void *)m);
+        glVertexAttribPointer(i, elements[i].size, GL_FLOAT, GL_FALSE, VBL.GetStride(), (const void *)(m * sizeof(float)));
         glEnableVertexAttribArray(i);
         m += elements[i].size;
     }

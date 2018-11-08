@@ -32,10 +32,10 @@ void Application::Run()
     double mainDelta;
     double inputDelta;
     float vertices[] = {
-            0.5f,  0.5f, 0.0f, // Prawy górny
-            0.5f, -0.5f, 0.0f, // Prawy dolny
-           -0.5f, -0.5f, 0.0f, // Lewy dolny
-           -0.5f,  0.5f, 0.0f  // Lewy górny
+            0.5f,  0.5f, 0.0f, 1.0f, 1.0f, // Prawy górny
+            0.5f, -0.5f, 0.0f, 1.0f, 0.0f, // Prawy dolny
+           -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,// Lewy dolny
+           -0.5f,  0.5f, 0.0f, 0.0f, 1.0f// Lewy górny
     };
 
     unsigned int indices[] = {
@@ -44,15 +44,19 @@ void Application::Run()
     };
 
     VertexArray VAO;
-    VertexBuffer VBO(4 * 3 * sizeof(float), vertices);
+    VertexBuffer VBO(4 * 5 * sizeof(float), vertices);
     VertexBufferLayout layout;
     layout.PushElement(3);
+    layout.PushElement(2);
     IndexBuffer IBO(6, indices);
 
     VAO.BindVertexBuffer(VBO, layout);
     VAO.BindIndexBuffer(IBO);
 
     Shader shader("../resources/shaders/BasicVertexShader.vs", "../resources/shaders/BasicFragmentShader.fs");
+    Texture texture("../resources/textures/awesomeface.png", true);
+
+    shader.SetUniform1f("texture1", 0);
 
     float red = 0.0f;
     float c = 0.005f;
@@ -83,8 +87,9 @@ void Application::Run()
         red += c;
 
         m_Window->Clear();
+        texture.Bind();
         shader.Bind();
-        shader.SetUniform4f("ourColor", red, 0.5f, 0.3f, 1.0f);
+        //shader.SetUniform4f("ourColor", red, 0.5f, 0.3f, 1.0f);
         VAO.Bind();
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
         m_Window->Render();

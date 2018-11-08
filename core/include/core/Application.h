@@ -8,6 +8,7 @@
 #include <core/Window.h>
 #include <core/VertexArray.h>
 #include <core/Shader.h>
+#include <core/Texture.h>
 #include <common/timer.h>
 #include <iostream>
 
