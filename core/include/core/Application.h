@@ -11,6 +11,7 @@
 #include <core/Texture.h>
 #include <common/timer.h>
 #include <iostream>
+#include <thread>
 
 const int FPS_MAX = 60;
 
@@ -24,6 +25,7 @@ public:
 private:
     bool Init(const std::string & title, int width, int height, bool fullscreen = false);
     void Run();
+    void call_from_thread();
 };
 
 #endif //APPLICATION_H

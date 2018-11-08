@@ -3,6 +3,8 @@
 //
 
 #include <Application.h>
+#include <core/Application.h>
+
 
 Application::Application(const std::string & title, int width, int height, bool fullscreen)
 {
@@ -23,14 +25,16 @@ bool Application::Init(const std::string & title, int width, int height, bool fu
     return false;
 }
 
+void Application::call_from_thread() {
+    while(!m_Window->Closed()) {
+        m_Window->ProcessInput();
+        std::this_thread::sleep_for(5ms);
+    }
+}
+
 void Application::Run()
 {
     Timer mainTimer;
-    Timer inputTimer;
-    Timer tmpTimer;
-    double timeForInput;
-    double mainDelta;
-    double inputDelta;
     float vertices[] = {
             0.5f,  0.5f, 0.0f, 1.0f, 1.0f, // Prawy górny
             0.5f, -0.5f, 0.0f, 1.0f, 0.0f, // Prawy dolny
@@ -60,25 +64,11 @@ void Application::Run()
 
     float red = 0.0f;
     float c = 0.005f;
-    int i = 0;
+    std::thread thread(&Application::call_from_thread, this);
     while(!m_Window->Closed())
     {
-        //TODO: double sub sucks....
+        mainTimer.getElapsedTime();
 
-        mainDelta = mainTimer.getElapsedTime();
-        inputDelta = inputTimer.getElapsedTime();
-        timeForInput = mainDelta - inputDelta;
-        tmpTimer.getTime();
-        do {
-            timeForInput -= tmpTimer.getElapsedTime();
-            i++;
-            m_Window->ProcessInput();
-        } while(timeForInput > 0);
-        std::cout << mainTimer.getFps() << " ilosc pobran: " << i << "    " << timeForInput << "   " << mainDelta << "      " << inputTimer.getLastElapsedTime() << std::endl;
-        i = 0;
-
-        ////////////////////
-        inputTimer.getTime();
         if(red > 1)
             c = -c;
         else if(red < 0)
@@ -94,4 +84,7 @@ void Application::Run()
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
         m_Window->Render();
     }
+    thread.join();
 }
+
+
