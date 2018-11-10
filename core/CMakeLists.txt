@@ -13,7 +13,8 @@ set(SOURCE_FILES
         src/VertexBuffer.cpp
         src/IndexBuffer.cpp
         src/Shader.cpp
-        src/Texture.cpp)
+        src/Texture.cpp
+        src/Mesh.cpp)
 
 #includes
 include_directories(${PROJECT_SOURCE_DIR}/include/core)

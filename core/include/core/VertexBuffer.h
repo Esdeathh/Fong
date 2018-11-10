@@ -12,7 +12,7 @@ class VertexBuffer
 private:
     unsigned int m_ID;
 public:
-    VertexBuffer(unsigned int size, const void* data, GLenum usage = GL_STATIC_DRAW);
+    VertexBuffer(unsigned int size, const void *data, GLenum usage = GL_STATIC_DRAW);
     ~VertexBuffer();
     void Bind() const;
     void Unbind() const;
