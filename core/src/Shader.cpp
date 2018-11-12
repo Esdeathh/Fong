@@ -79,7 +79,7 @@ unsigned int Shader::CreateShader(const std::string& vertexShader, const std::st
         auto info = new char[length];
         glGetProgramInfoLog(program, length, &length, info);
         std::cout << "WARNING: program linking\n" << info << std::endl;
-        delete info;
+        delete[] info;
 
         glDeleteShader(VShader);
         glDeleteShader(FShader);

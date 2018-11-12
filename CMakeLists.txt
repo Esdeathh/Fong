@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.11)
 project(Fong)
 
 set(EXTERNALS_DIR ${PROJECT_SOURCE_DIR}/externals)
@@ -13,12 +13,13 @@ set(SOURCE_FILES main.cpp)
 #includes
 include(GNUInstallDirs)
 
-include_directories("${PROJECT_SOURCE_DIR}/core/include")
+include_directories(${PROJECT_SOURCE_DIR}/core/include)
 include_directories(${EXTERNALS_DIR}/glad/include)
 include_directories(${EXTERNALS_DIR}/stb_image/include)
 include_directories(${EXTERNALS_DIR}/glfw/include)
 include_directories(${EXTERNALS_DIR}/glm/glm)
 include_directories(${COMMON_DIR}/include)
+include_directories(${EXTERNALS_DIR}/freetype2/include)
 
 #subdirectories
 add_subdirectory(${PROJECT_SOURCE_DIR}/externals)
@@ -31,8 +32,9 @@ add_executable(Fong ${SOURCE_FILES})
 #Setup OpenGL
 find_package(OpenGL REQUIRED)
 
+include_directories(${FREETYPE_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} ${OPENGL_gl_LIBRARY})
 target_include_directories(${PROJECT_NAME} PRIVATE ${OPENGL_INCLUDE_DIR})
 
 #Add targets
-target_link_libraries(${PROJECT_NAME} core)
+target_link_libraries(${PROJECT_NAME} core freetype)
