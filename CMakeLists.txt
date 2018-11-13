@@ -18,6 +18,7 @@ include_directories(${EXTERNALS_DIR}/glad/include)
 include_directories(${EXTERNALS_DIR}/stb_image/include)
 include_directories(${EXTERNALS_DIR}/glfw/include)
 include_directories(${EXTERNALS_DIR}/glm/glm)
+include_directories(${EXTERNALS_DIR}/freetype2/include)
 include_directories(${COMMON_DIR}/include)
 
 #subdirectories

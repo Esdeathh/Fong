@@ -31,9 +31,19 @@ void Application::call_from_thread() {
     }
 }
 
+void Application::fpsUpdate(Font *font, Timer *timer) {
+    while(!m_Window->Closed()) {
+        std::ostringstream strs;
+        strs << timer->getFps();
+        std::string str = strs.str();
+        font->setText(str.substr(0, str.find_first_of('.') + 2));
+        std::this_thread::sleep_for(1s);
+    }
+}
+
 void Application::Run()
 {
-    Timer mainTimer;
+    Timer *mainTimer = new Timer;
     std::vector<Vertex> vertices = {
             { glm::vec3( 0.5f,  0.5f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0), glm::vec2(1.0f, 1.0f) }, // Prawy górny
             { glm::vec3( 0.5f, -0.5f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0), glm::vec2(1.0f, 0.0f) }, // Prawy dolny
@@ -53,23 +63,31 @@ void Application::Run()
 
     Mesh testMesh(vertices, indices, textures);
 
-    Shader shader("../resources/shaders/BasicVertexShader.vs", "../resources/shaders/BasicFragmentShader.fs");
-    shader.SetUniform1f("texture1", 0);
+    Shader textureShader("../resources/shaders/BasicVertexShader.vs", "../resources/shaders/BasicFragmentShader.fs");
+    textureShader.SetUniform1f("texture1", 0);
+    glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(800), 0.0f, static_cast<GLfloat>(600));
+    Font *fps = new Font("../resources/fonts/arial.ttf", glm::vec2(25.0f, 25.0f), glm::vec3(1.0f, 0.0f, 0.0f), "DUPA", projection, 1.0f);
+
 
     std::thread thread(&Application::call_from_thread, this);
+    mainTimer->getElapsedTime();
+    std::thread thread2(&Application::fpsUpdate, this, fps, mainTimer);
     while(!m_Window->Closed())
     {
-        mainTimer.getElapsedTime();
+        mainTimer->getElapsedTime();
 
         m_Window->Clear();
-
-        shader.Bind();
+        textureShader.Bind();
         testMesh.Bind();
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+        fps->renderText();
 
         m_Window->Render();
     }
+    delete(fps);
+    delete(mainTimer);
     thread.join();
+    thread2.join();
 }
 
 

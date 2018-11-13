@@ -61,6 +61,10 @@ bool Window::Init()
     }
 
     glViewport(0, 0, m_Width, m_Height);
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     //glfwSetFramebufferSizeCallback(m_Window, ResizeCallback);
     glfwSwapInterval(1);
 

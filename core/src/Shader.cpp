@@ -50,7 +50,7 @@ unsigned int Shader::CompileShader(unsigned int type, const std::string& source)
         auto info = new char[length];
         glGetShaderInfoLog(shader, length, &length, info);
         std::cout << "WARNING: " << ((type == GL_VERTEX_SHADER) ? "VERTEX" : "FRAGMENT") << "shader compilation\n" << info << std::endl;
-        delete info;
+        delete[] info;
 
         glDeleteShader(shader);
         return 0;
@@ -79,7 +79,7 @@ unsigned int Shader::CreateShader(const std::string& vertexShader, const std::st
         auto info = new char[length];
         glGetProgramInfoLog(program, length, &length, info);
         std::cout << "WARNING: program linking\n" << info << std::endl;
-        delete info;
+        delete[] info;
 
         glDeleteShader(VShader);
         glDeleteShader(FShader);
@@ -107,6 +107,12 @@ void Shader::Unbind() const
 void Shader::SetUniform1f(const std::string &name, float x)
 {
     glUniform1f(GetUniformLocation(name), x);
+}
+
+void Shader::SetUniform3f(const std::string &name, float x, float y, float z)
+{
+    Bind();
+    glUniform3f(GetUniformLocation(name), x, y, z);
 }
 
 void Shader::SetUniform4f(const std::string &name, float x, float y, float z, float w)
