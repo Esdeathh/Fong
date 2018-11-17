@@ -28,7 +28,7 @@ private:
     bool Init(const std::string & title, int width, int height, bool fullscreen = false);
     void Run();
     void call_from_thread();
-    void Application::fpsUpdate(Font *font, Timer *timer);
+    void fpsUpdate(Font *font, Timer *timer);
 };
 
 #endif //APPLICATION_H

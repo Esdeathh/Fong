@@ -12,10 +12,15 @@
 
 #include <vector>
 
-struct Vertex
+struct VertexPC
 {
     glm::vec3 m_Position;
     glm::vec3 m_Color;
+};
+
+struct VertexPT
+{
+    glm::vec3 m_Position;
     glm::vec2 m_TexCoord;
 };
 
@@ -25,9 +30,10 @@ private:
     VertexArray *m_VAO;
     IndexBuffer *m_EBO;
     VertexBuffer *m_VBO;
-    std::vector<Texture *> m_Textures;
+    Texture *m_Texture;
 public:
-    Mesh(const std::vector<Vertex>& data, const std::vector<unsigned int>& indices, std::vector<Texture *>& textures);
+    Mesh(const std::vector<VertexPC>& data, const std::vector<unsigned int>& indices);
+    Mesh(const std::vector<VertexPT>& data, const std::vector<unsigned int>& indices, Texture *texture);
     ~Mesh();
 
     void Bind() const;

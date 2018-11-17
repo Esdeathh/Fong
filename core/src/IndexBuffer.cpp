@@ -5,7 +5,6 @@
 #include <IndexBuffer.h>
 #include <core/IndexBuffer.h>
 
-
 IndexBuffer::IndexBuffer(unsigned int count, const void *data, GLenum usage)
     : m_Count(count)
 {

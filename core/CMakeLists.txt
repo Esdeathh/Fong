@@ -15,6 +15,8 @@ set(SOURCE_FILES
         src/Shader.cpp
         src/Texture.cpp
         src/Mesh.cpp
+        src/Rectangle.cpp
+        src/Circle.cpp
         src/Font.cpp)
 
 #includes
