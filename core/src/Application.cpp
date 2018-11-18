@@ -53,28 +53,30 @@ void Application::Run()
 
     Font *fps = new Font("../resources/fonts/arial.ttf", glm::vec2(25.0f, 25.0f), glm::vec3(1.0f, 0.0f, 0.0f), "DUPA", projection, 1.0f);
 
-    Shader rectangleShader("../resources/shaders/Sprite.vs", "../resources/shaders/Sprite.fs");
-    rectangleShader.Bind();
-    rectangleShader.SetUniformMat4("projection", projection);
-    rectangleShader.SetUniform1f("texture1", 0);
 
-    core::Rectangle rect1(glm::vec3(200.0f, 200.0f, 0.0f), glm::vec2(50.0f, 50.0f), true, glm::vec2(50.0f, 50.0f), "../resources/textures/awesomeface.png");
-    core::Rectangle rect2(glm::vec3(200.0f, 400.0f, 0.0f), glm::vec2(50.0f, 90.0f), true, glm::vec2(50.0f, 50.0f), "../resources/textures/awesomeface.png");
 
 
     Shader rectShader("../resources/shaders/ColorRect.vs", "../resources/shaders/ColorRect.fs");
-    core::Rectangle rect3(glm::vec3(700.0f, 400.0f, 0.0f), glm::vec3(0.3f, 0.7f, 0.1), glm::vec2(50.0f, 90.0f), true, glm::vec2(80.0f, 50.0f));
     rectShader.Bind();
     rectShader.SetUniformMat4("projection", projection);
 
+    std::vector<core::Rectangle *> tiles;
+    for(float i = 10; i < 600; i += 10)
+    {
+        for(float j = 10; j < 800; j += 10)
+            tiles.push_back(new core::Rectangle(glm::vec3(j, i, 0.0f), glm::vec3(0.8f, 0.4f, 0.4f), glm::vec2(0.0f, 0.0f), true, glm::vec2(4.0f, 4.0f)));
+    }
 
+    glClearColor(0.2f, 0.1f, 0.05f, 1.0f);
+
+    core::Rectangle rect1(glm::vec3(100.0f, 300.0f, 0.0f), glm::vec3(0.3f, 0.7f, 0.1), glm::vec2(0.0f, 50.0f), true, glm::vec2(15.0f, 75.0f));
+    core::Rectangle rect2(glm::vec3(700.0f, 300.0f, 0.0f), glm::vec3(0.3f, 0.7f, 0.1), glm::vec2(0.0f, 50.0f), true, glm::vec2(15.0f, 75.0f));
 
     Shader circleShader("../resources/shaders/CircleVertexShader.vs", "../resources/shaders/CircleFragmentShader.fs");
-    core::Circle circ(glm::vec3(400.0f, 300.0f, 0.0f), glm::vec3(0.7f, 0.3f, 0.6), glm::vec2(50.0f, 50.0f), true, 50);
-    //core::Circle cir(glm::vec3(400.0f, 600.0f, 0.0f), glm::vec2(50.0f, 50.0f), true, 30, "../resources/textures/awesomeface.png");
     circleShader.Bind();
     circleShader.SetUniformMat4("projection", projection);
-    circleShader.SetUniformMat4("world", glm::mat4(1));
+
+    core::Circle circ(glm::vec3(400.0f, 300.0f, 0.0f), glm::vec3(0.7f, 0.3f, 0.6), glm::vec2(50.0f, 50.0f), true, 20);
 
 
     std::thread thread(&Application::call_from_thread, this);
@@ -86,10 +88,16 @@ void Application::Run()
 
         m_Window->Clear();
 
-        rect1.Draw(rectangleShader);
-        rect2.Draw(rectangleShader);
-        rect3.Draw(rectShader);
-        //cir.Draw(circleShader);
+        rectShader.Bind();
+        tiles[0]->BindMesh();
+        for(int i = 0; i < tiles.size(); i++)
+            tiles[i]->Draw(rectShader);
+
+        //glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr, 800 * 600);
+
+        rect1.BindMesh();
+        rect1.Draw(rectShader);
+        rect2.Draw(rectShader);
         circ.Draw(circleShader);
 
 

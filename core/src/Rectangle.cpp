@@ -46,10 +46,15 @@ namespace core {
 
     void Rectangle::Draw(Shader& shader)
     {
-        shader.Bind();
-        m_Mesh->Bind();
+        //shader.Bind();
+        //m_Mesh->Bind();
         shader.SetUniformMat4("world", glm::translate(glm::mat4(1), m_Position));
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+    }
+
+    void Rectangle::BindMesh() const
+    {
+        m_Mesh->Bind();
     }
 
 }

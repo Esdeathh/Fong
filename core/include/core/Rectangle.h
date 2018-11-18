@@ -19,6 +19,7 @@ namespace core {
         ~Rectangle() override = default;
 
         void Draw(Shader& shader) override;
+        void BindMesh() const;
 
         inline glm::vec2 GetSize() const { return m_Size; };
     };
