@@ -7,8 +7,6 @@
 #include <core/Circle.h>
 #include <glm/glm.hpp>
 
-#include <common/Debug.h>
-
 Application::Application(const std::string & title, int width, int height, bool fullscreen)
 {
     Init(title, width, height, fullscreen);

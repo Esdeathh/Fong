@@ -3,7 +3,6 @@
 //
 
 #include <core/Mesh.h>
-#include <common/Debug.h>
 
 Mesh::Mesh(const std::vector<VertexPC> &data, const std::vector<unsigned int>& indices)
     :  m_Texture(nullptr)
