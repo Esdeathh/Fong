@@ -27,6 +27,8 @@ namespace core {
         virtual ~Shape() { delete m_Mesh; };
         virtual void Draw( Shader &shader) = 0;
 
+        virtual void changePosition(glm::vec3 position) = 0;
+        virtual void changeColor(glm::vec3 color) = 0;
         inline glm::vec2 GetVelocity() const { return m_Velocity; };
         inline glm::vec3 GetPosition() const { return m_Position; };
         inline bool GetIsSolid() const { return m_IsSolid; };

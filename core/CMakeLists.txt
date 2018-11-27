@@ -17,7 +17,7 @@ set(SOURCE_FILES
         src/Mesh.cpp
         src/Rectangle.cpp
         src/Circle.cpp
-        src/Font.cpp)
+        src/Font.cpp src/Player.cpp src/Player.h)
 
 #includes
 include_directories(${PROJECT_SOURCE_DIR}/include/core)

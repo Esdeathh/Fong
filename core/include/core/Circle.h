@@ -18,6 +18,8 @@ namespace core {
 
         ~Circle() override = default;
 
+        void changePosition(glm::vec3 position) override;
+        void changeColor(glm::vec3 color) override;
         void Draw(Shader &shader) override;
 
         inline float GetRadius() const { return m_Radius; };

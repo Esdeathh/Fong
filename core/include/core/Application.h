@@ -14,6 +14,7 @@
 #include <thread>
 #include <core/Font.h>
 #include <sstream>
+#include <core/Player.h>
 
 const int FPS_MAX = 60;
 

@@ -53,4 +53,12 @@ namespace core {
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
     }
 
+    void Circle::changeColor(glm::vec3 color) {
+
+    }
+
+    void Circle::changePosition(glm::vec3 position) {
+
+    }
+
 }

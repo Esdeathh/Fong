@@ -51,24 +51,18 @@ void Application::Run()
 
     Font *fps = new Font("../resources/fonts/arial.ttf", glm::vec2(25.0f, 25.0f), glm::vec3(1.0f, 0.0f, 0.0f), "DUPA", projection, 1.0f);
 
-
-
-
-    Shader rectShader("../resources/shaders/ColorRect.vs", "../resources/shaders/ColorRect.fs");
-    rectShader.Bind();
-    rectShader.SetUniformMat4("projection", projection);
+    Shader tilesShader("../resources/shaders/ColorRect.vs", "../resources/shaders/ColorRect.fs");
+    tilesShader.Bind();
+    tilesShader.SetUniformMat4("projection", projection);
 
     std::vector<core::Rectangle *> tiles;
-    for(float i = 10; i < 600; i += 10)
-    {
-        for(float j = 10; j < 800; j += 10)
-            tiles.push_back(new core::Rectangle(glm::vec3(j, i, 0.0f), glm::vec3(0.8f, 0.4f, 0.4f), glm::vec2(0.0f, 0.0f), true, glm::vec2(4.0f, 4.0f)));
+    for(int i = 50; i < 550; i += 10) {
+        for(int j = 10; j < 800; j += 10)
+            tiles.push_back(new core::Rectangle(glm::vec3(j, i, 0.0f), glm::vec3(0.8f, 0.8f, 0.8f), glm::vec2(0.0f, 0.0f), true, glm::vec2(4.7f, 4.7f)));
     }
 
     glClearColor(0.2f, 0.1f, 0.05f, 1.0f);
 
-    core::Rectangle rect1(glm::vec3(100.0f, 300.0f, 0.0f), glm::vec3(0.3f, 0.7f, 0.1), glm::vec2(0.0f, 50.0f), true, glm::vec2(15.0f, 75.0f));
-    core::Rectangle rect2(glm::vec3(700.0f, 300.0f, 0.0f), glm::vec3(0.3f, 0.7f, 0.1), glm::vec2(0.0f, 50.0f), true, glm::vec2(15.0f, 75.0f));
 
     Shader circleShader("../resources/shaders/CircleVertexShader.vs", "../resources/shaders/CircleFragmentShader.fs");
     circleShader.Bind();
@@ -76,6 +70,12 @@ void Application::Run()
 
     core::Circle circ(glm::vec3(400.0f, 300.0f, 0.0f), glm::vec3(0.7f, 0.3f, 0.6), glm::vec2(50.0f, 50.0f), true, 20);
 
+    Shader playerShader("../resources/shaders/PlayerVS.vs", "../resources/shaders/Player.fs");
+    playerShader.Bind();
+    playerShader.SetUniformMat4("projection", projection);
+
+    Player player1(glm::vec3(725.0f, 20.0f, 0.0f), glm::vec3(0.3f, 0.7f, 0.1f), glm::vec2(0.0f, 50.0f), true, glm::vec2(75.0f, 10.0f));
+    Player player2(glm::vec3(400.0f, 580.0f, 0.0f), glm::vec3(0.3f, 0.7f, 0.1f), glm::vec2(0.0f, 50.0f), true, glm::vec2(75.0f, 10.0f));
 
     std::thread thread(&Application::call_from_thread, this);
     mainTimer->getElapsedTime();
@@ -86,16 +86,18 @@ void Application::Run()
 
         m_Window->Clear();
 
-        rectShader.Bind();
+        tilesShader.Bind();
         tiles[0]->BindMesh();
         for(int i = 0; i < tiles.size(); i++)
-            tiles[i]->Draw(rectShader);
+            tiles[i]->Draw(tilesShader);
 
         //glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr, 800 * 600);
 
-        rect1.BindMesh();
-        rect1.Draw(rectShader);
-        rect2.Draw(rectShader);
+        playerShader.Bind();
+        player1.BindMesh();
+        player1.Draw(tilesShader);
+        player2.Draw(tilesShader);
+        circleShader.Bind();
         circ.Draw(circleShader);
 
 

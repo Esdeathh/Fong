@@ -3,6 +3,6 @@
 
 int main()
 {
-    Application app("Test", 800, 600, false);
+    Application app("Test", 1920, 1080, true);
     return 0;
 }
